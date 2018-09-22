@@ -11,6 +11,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import test.com.liverecycler.viewmodel.ProjectViewModelFactory;
 import test.com.liverecycler.service.repository.UserService;
 
+/**
+ * Created by william on 22-09-2018.
+ */
+
+
 @Module(subcomponents = ViewModelSubComponent.class)
 class AppModule {
     @Singleton

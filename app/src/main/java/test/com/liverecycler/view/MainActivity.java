@@ -14,6 +14,10 @@ import test.com.liverecycler.viewmodel.UserViewModel;
 import test.com.liverecycler.di.Injectable;
 import test.com.liverecycler.service.model.UserResponse;
 
+/**
+ * Created by william on 22-09-2018.
+ */
+
 public class MainActivity extends AppCompatActivity implements Injectable {
 
     @Inject

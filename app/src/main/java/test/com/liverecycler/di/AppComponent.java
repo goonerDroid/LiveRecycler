@@ -8,6 +8,10 @@ import dagger.Component;
 import dagger.android.AndroidInjectionModule;
 import test.com.liverecycler.LiveRecycler;
 
+/**
+ * Created by william on 22-09-2018.
+ */
+
 @Singleton
 @Component(modules = {
         AndroidInjectionModule.class,

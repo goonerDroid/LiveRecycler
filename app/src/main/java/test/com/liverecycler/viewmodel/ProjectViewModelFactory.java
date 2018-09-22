@@ -15,6 +15,10 @@ import javax.inject.Singleton;
 import test.com.liverecycler.di.ViewModelSubComponent;
 import test.com.liverecycler.viewmodel.UserViewModel;
 
+/**
+ * Created by william on 22-09-2018.
+ */
+
 @Singleton
 public class ProjectViewModelFactory implements ViewModelProvider.Factory {
     private final ArrayMap<Class, Callable<? extends ViewModel>> creators;
