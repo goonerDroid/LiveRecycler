@@ -19,6 +19,8 @@ public class RandomUser {
     private String phone;
     @SerializedName("cell")
     private String cell;
+    @SerializedName("id")
+    private RandomUserID randomUserID;
     @SerializedName("picture")
     private RandomUserPicture randomUserPicture;
     @SerializedName("nat")
@@ -55,5 +57,9 @@ public class RandomUser {
 
     public String getRandomUserNationality() {
         return randomUserNationality;
+    }
+
+    public RandomUserID getRandomUserID() {
+        return randomUserID;
     }
 }

@@ -1,8 +1,15 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+
+project.ext {
+    lifecycle_version = "1.1.1"
+    retrofit = "2.4.0"
+    gson = "2.4.0"
+    butterKnife = "8.8.1"
+    glide = "4.7.1"
+    dagger_version = "2.16"
+}
 
 android {
     compileSdkVersion 28
@@ -35,6 +42,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:28.0.0-rc02'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support:recyclerview-v7:28.0.0-rc02'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -42,33 +50,23 @@ dependencies {
 
 
 
-    def lifecycle_version = "1.1.1"
-    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
-
-    def retrofit = "2.4.0"
-    implementation "com.squareup.retrofit2:retrofit:$retrofit"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    implementation "android.arch.lifecycle:extensions:$project.lifecycle_version"
+    implementation "com.squareup.retrofit2:retrofit:$project.retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$project.retrofit"
 
 
-    def gson = "2.4.0"
-    implementation "com.google.code.gson:gson:$gson"
+    implementation "com.google.code.gson:gson:$project.gson"
 
-    def butterKnife = "8.8.1"
-    implementation "com.jakewharton:butterknife:$butterKnife"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnife"
+    implementation "com.jakewharton:butterknife:$project.butterKnife"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$project.butterKnife"
 
-    def glide = "4.7.1"
-    implementation "com.github.bumptech.glide:glide:$glide"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide"
+    implementation "com.github.bumptech.glide:glide:$project.glide"
+    annotationProcessor "com.github.bumptech.glide:compiler:$project.glide"
 
-    def work_manager = "1.0.0-alpha09"
-    implementation "android.arch.work:work-runtime:$work_manager"
+    implementation "com.google.dagger:dagger:$project.dagger_version"
+    implementation "com.google.dagger:dagger-android:$project.dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$project.dagger_version"
 
-    def dagger_version = "2.16"
-    implementation "com.google.dagger:dagger:$dagger_version"
-    implementation "com.google.dagger:dagger-android:$dagger_version"
-    implementation "com.google.dagger:dagger-android-support:$dagger_version"
-
-    annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
-    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$project.dagger_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$project.dagger_version"
 }

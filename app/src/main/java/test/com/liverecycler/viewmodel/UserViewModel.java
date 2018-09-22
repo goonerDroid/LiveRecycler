@@ -27,7 +27,6 @@ public class UserViewModel extends AndroidViewModel {
         super(application);
         this.resultSizeReq = new MutableLiveData<>();
         liveData = Transformations.switchMap(resultSizeReq,input -> {
-            Log.i("UserViewModel","ProjectViewModel projectID is " + resultSizeReq.getValue());
             return projectRepository.getRandomUsers(resultSizeReq.getValue());
         });
     }
