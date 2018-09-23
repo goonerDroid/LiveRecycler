@@ -64,7 +64,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
                 .priority(Priority.IMMEDIATE)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
         Glide.with(userViewHolder.ivUserImg.getContext())
-                .load(randomUser.getRandomUserPicture().getMediumSizePic())
+                .load(randomUser.getRandomUserPicture().getLargeSizePic())
                 .into(userViewHolder.ivUserImg);
     }
 
