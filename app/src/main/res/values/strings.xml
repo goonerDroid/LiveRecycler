@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LiveRecycler</string>
+    <string name="fetching_random_users">Fetching random users......</string>
 </resources>

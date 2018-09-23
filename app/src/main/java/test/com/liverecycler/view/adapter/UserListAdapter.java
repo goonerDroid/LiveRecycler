@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
@@ -24,6 +25,8 @@ import butterknife.ButterKnife;
 import test.com.liverecycler.R;
 import test.com.liverecycler.service.model.RandomUser;
 import test.com.liverecycler.view.customview.CircleButton;
+
+import static test.com.liverecycler.utils.CommonUtils.capitalize;
 
 /**
  * Created by william on 23-09-2018.
@@ -67,6 +70,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
         Glide.with(userViewHolder.ivUserImg.getContext())
                 .load(randomUser.getRandomUserPicture().getLargeSizePic())
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(userViewHolder.ivUserImg);
 
 
@@ -136,15 +140,5 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-    }
-
-    public static  String capitalize(String capString){
-        StringBuffer capBuffer = new StringBuffer();
-        Matcher capMatcher = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(capString);
-        while (capMatcher.find()){
-            capMatcher.appendReplacement(capBuffer, capMatcher.group(1).toUpperCase() + capMatcher.group(2).toLowerCase());
-        }
-
-        return capMatcher.appendTail(capBuffer).toString();
     }
 }

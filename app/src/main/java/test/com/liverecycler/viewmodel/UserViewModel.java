@@ -31,13 +31,10 @@ public class UserViewModel extends AndroidViewModel {
         });
     }
 
-    /**
-     * Expose the LiveData Projects query so the UI can observe it.
-     */
+
     public LiveData<UserResponse> getRandomUsersObservable() {
         return liveData;
     }
-
 
     public void setResultRequestSize(String requestSize) {
         this.resultSizeReq.setValue(requestSize);

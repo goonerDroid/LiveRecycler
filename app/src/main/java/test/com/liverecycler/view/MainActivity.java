@@ -1,5 +1,6 @@
 package test.com.liverecycler.view;
 
+import android.app.ProgressDialog;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
@@ -24,22 +25,25 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.internal.Utils;
 import dagger.android.AndroidInjection;
 import test.com.liverecycler.R;
 import test.com.liverecycler.service.model.RandomUser;
+import test.com.liverecycler.utils.CommonUtils;
 import test.com.liverecycler.view.adapter.UserListAdapter;
 import test.com.liverecycler.view.customview.RecyclerItemTouchHelper;
 import test.com.liverecycler.viewmodel.UserViewModel;
 import test.com.liverecycler.di.Injectable;
 import test.com.liverecycler.service.model.UserResponse;
 
-import static test.com.liverecycler.view.adapter.UserListAdapter.capitalize;
+import static test.com.liverecycler.utils.CommonUtils.capitalize;
 
 /**
  * Created by william on 22-09-2018.
  */
 
 public class MainActivity extends AppCompatActivity implements Injectable, RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
+    private static final String RESULT_SIZE = "30";
     private UserListAdapter userListAdapter;
 
     @BindView(R.id.rv_user_list)
@@ -48,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements Injectable, Recyc
     ViewModelProvider.Factory viewModelFactory;
 
     private List<RandomUser> randomUserList = new ArrayList<>();
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +67,8 @@ public class MainActivity extends AppCompatActivity implements Injectable, Recyc
     }
 
     private void getRandomUsers(UserViewModel mUserViewModel){
-        mUserViewModel.setResultRequestSize("30");
+        showProgressDialog();
+        mUserViewModel.setResultRequestSize(RESULT_SIZE);
         observeViewModel(mUserViewModel);
     }
 
@@ -83,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements Injectable, Recyc
     private void setData(UserResponse userResponse) {
         randomUserList.clear();
         randomUserList.addAll(userResponse.getRandomUserList());
+        hideProgressDialog();
         userListAdapter.setProjectList(randomUserList);
     }
 
@@ -101,5 +108,23 @@ public class MainActivity extends AppCompatActivity implements Injectable, Recyc
         snackbar.show();
 
         userListAdapter.removeItem(viewHolder.getAdapterPosition());
+    }
+
+    private void showProgressDialog(){
+        if (progressDialog == null) {
+            progressDialog = CommonUtils.createProgressDialog(MainActivity.this);
+            progressDialog.show();
+        } else {
+            progressDialog.show();
+        }
+    }
+
+    private void hideProgressDialog(){
+        if (progressDialog == null) {
+            progressDialog = CommonUtils.createProgressDialog(MainActivity.this);
+            progressDialog.hide();
+        } else {
+            progressDialog.hide();
+        }
     }
 }
