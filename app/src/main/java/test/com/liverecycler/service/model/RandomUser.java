@@ -11,6 +11,8 @@ public class RandomUser {
     private String gender;
     @SerializedName("name")
     private RandomUserName randomUserName;
+    @SerializedName("location")
+    private RandomUserLocation randomUserLocation;
     @SerializedName("email")
     private String email;
     @SerializedName("dob")
@@ -61,5 +63,9 @@ public class RandomUser {
 
     public RandomUserID getRandomUserID() {
         return randomUserID;
+    }
+
+    public RandomUserLocation getRandomUserLocation() {
+        return randomUserLocation;
     }
 }

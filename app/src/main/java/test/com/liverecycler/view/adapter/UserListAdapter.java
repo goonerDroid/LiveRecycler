@@ -6,9 +6,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +30,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
 
 
     private List<? extends RandomUser> projectList;
+    private RequestOptions defaultOptions = new RequestOptions();
 
     public void setProjectList(final List<? extends RandomUser> projectList) {
         this.projectList = projectList;
@@ -37,9 +46,26 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder userViewHolder, int pos) {
-        int position = userViewHolder.getAdapterPosition();
-        RandomUser discoverShow = projectList.get(position);
-        userViewHolder.tvRandomUsername.setText(discoverShow.getRandomUserName().getFirstName());
+        RandomUser randomUser = projectList.get(pos);
+
+
+        userViewHolder.tvUserName.setText(capitalize(randomUser.getRandomUserName().getFirstName().concat(" ")
+                .concat(randomUser.getRandomUserName().getLastName())));
+
+        userViewHolder.tvUserAge.setText(randomUser.getRandomUserAge().getRandomUserAge() + " yrs");
+        userViewHolder.tvUserLocation.setText(capitalize(randomUser.getRandomUserLocation().getCity().concat(", ")
+                .concat(randomUser.getRandomUserLocation().getState())));
+        userViewHolder.tvUserEmail.setText(randomUser.getEmail());
+        userViewHolder.tvUserPhone.setText(randomUser.getPhone());
+
+
+
+        defaultOptions = defaultOptions
+                .priority(Priority.IMMEDIATE)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
+        Glide.with(userViewHolder.ivUserImg.getContext())
+                .load(randomUser.getRandomUserPicture().getMediumSizePic())
+                .into(userViewHolder.ivUserImg);
     }
 
     @Override
@@ -49,13 +75,33 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
 
     static class UserViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.name)
-        TextView tvRandomUsername;
+        @BindView(R.id.user_image)
+        ImageView ivUserImg;
+        @BindView(R.id.user_name)
+        TextView tvUserName;
+        @BindView(R.id.user_age)
+        TextView tvUserAge;
+        @BindView(R.id.user_location)
+        TextView tvUserLocation;
+        @BindView(R.id.user_email)
+        TextView tvUserEmail;
+        @BindView(R.id.user_phone)
+        TextView tvUserPhone;
 
 
         UserViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    private static  String capitalize(String capString){
+        StringBuffer capBuffer = new StringBuffer();
+        Matcher capMatcher = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(capString);
+        while (capMatcher.find()){
+            capMatcher.appendReplacement(capBuffer, capMatcher.group(1).toUpperCase() + capMatcher.group(2).toLowerCase());
+        }
+
+        return capMatcher.appendTail(capBuffer).toString();
     }
 }

@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements Injectable {
     }
 
     private void getRandomUsers(UserViewModel mUserViewModel){
-        mUserViewModel.setResultRequestSize("10");
+        mUserViewModel.setResultRequestSize("30");
         observeViewModel(mUserViewModel);
     }
 
